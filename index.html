@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images\logo.png">
+    <title>البوكاشي | Bokashi - مبادرة البيئة والتخمير الحيوي في غزة</title>
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#245C43',
+                        brandNatural: '#6E9F70',
+                        brandBg: '#F8F7F0',
+                        brandEarth: '#8B6848',
+                        brandSand: '#E9DFC9',
+                        brandText: '#26332C',
+                        brandLightSand: '#F3EDE2'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #F8F7F0;
+            color: #26332C;
+            scroll-behavior: smooth;
+        }
+ 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F7F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6E9F70;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #245C43;
+        }
+ 
+        /* Accordion Animations */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease;
+            opacity: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+ 
+        /* Focus rings for accessibility */
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid #245C43;
+            outline-offset: 2px;
+        }
+ 
+        /* Subtle organic card shadow */
+        .organic-card {
+            box-shadow: 0 10px 30px -10px rgba(36, 92, 67, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .organic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px -10px rgba(36, 92, 67, 0.15);
+        }
+ 
+        /* Mobile drawer smooth transition */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brandNatural selection:text-white">
+ 
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-[#F8F7F0]/95 backdrop-blur-md border-b border-brandSand/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+<a href="#hero" class="flex items-center gap-3 group">
+    <img
+        src="images\logo.png"
+        alt="شعار مبادرة بوكاشي غزة - أمل مستدام"
+        class="w-14 h-14 object-contain flex-shrink-0"
+        onerror="this.style.display='none'"
+    >
+ 
+    <div class="flex flex-col">
+        <span class="text-xl font-bold text-brandDark tracking-wide">
+            البوكاشي <span class="text-brandNatural font-normal">| Bokashi</span>
+        </span>
+        <span class="text-xs text-brandEarth font-medium">
+            مبادرة بيئية مجتمعية - غزة
+        </span>
+    </div>
+</a>
+ 
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-brandText">
+                    <a href="#hero" class="hover:text-brandDark transition-colors py-1 border-b-2 border-transparent hover:border-brandNatural">الرئيسية</a>
+                    <a href="#about" class="hover:text-brandDark transition-colors py-1 border-b-2 border-transparent hover:border-brandNatural">عن المبادرة</a>
+                    <a href="#how-it-works" class="hover:text-brandDark transition-colors py-1 border-b-2 border-transparent hover:border-brandNatural">كيف تعمل؟</a>
+                    <a href="#impact" class="hover:text-brandDark transition-colors py-1 border-b-2 border-transparent hover:border-brandNatural">الأثر البيئي</a>
+                    <a href="#faq" class="hover:text-brandDark transition-colors py-1 border-b-2 border-transparent hover:border-brandNatural">الأسئلة الشائعة</a>
+                </nav>
+ 
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#participate" class="bg-brandDark hover:bg-brandDark/90 text-white font-bold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all flex items-center gap-2 text-sm">
+                        <span>شارك في المبادرة</span>
+                        <i class="fa-solid fa-arrow-left text-xs"></i>
+                    </a>
+                </div>
+ 
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" type="button" class="text-brandDark p-2 rounded-lg hover:bg-brandSand/40 focus:outline-none" aria-label="قائمة التنقل">
+                        <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#F8F7F0] border-b border-brandSand/80 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-md font-medium text-brandText hover:bg-brandSand/30 hover:text-brandDark">الرئيسية</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-md font-medium text-brandText hover:bg-brandSand/30 hover:text-brandDark">عن المبادرة</a>
+            <a href="#how-it-works" class="mobile-link block px-3 py-2 rounded-md font-medium text-brandText hover:bg-brandSand/30 hover:text-brandDark">كيف تعمل؟</a>
+            <a href="#impact" class="mobile-link block px-3 py-2 rounded-md font-medium text-brandText hover:bg-brandSand/30 hover:text-brandDark">الأثر البيئي</a>
+            <a href="#faq" class="mobile-link block px-3 py-2 rounded-md font-medium text-brandText hover:bg-brandSand/30 hover:text-brandDark">الأسئلة الشائعة</a>
+            <a href="#participate" class="mobile-link block text-center bg-brandDark text-white font-bold px-4 py-3 rounded-xl mt-4 shadow">
+                شارك في المبادرة
+            </a>
+        </div>
+    </header>
+ 
+    <!-- Main Content -->
+    <main>
+ 
+        <!-- Section 2: Hero Section -->
+        <section id="hero" class="relative py-12 md:py-20 lg:py-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Side Text (in RTL, it is right) -->
+                    <div class="lg:col-span-7 space-y-6 text-right">
+                        <div class="inline-flex items-center gap-2 bg-brandSand/50 border border-brandEarth/20 text-brandEarth px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold">
+                            <i class="fa-solid fa-seedling text-brandNatural"></i>
+                            <span>مبادرة التخمير الحيوي العضوي في مخيمات النزوح</span>
+                        </div>
+                        
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brandDark leading-tight">
+                            من بقايا الطعام... <br class="hidden sm:inline" />
+                            <span class="text-brandNatural">تبدأ حكاية جديدة</span>
+                        </h1>
+                        
+                        <p class="text-base sm:text-lg text-brandText/90 leading-relaxed max-w-2xl">
+                            في مخيمات النزوح بغزة، تشكل بقايا الطعام المتراكمة تحديًا يوميًا للعائلات. مبادرة البوكاشي تسعى للاستفادة من جزء من هذه المخلفات عبر التخمير الحيوي، للمساهمة في تقليل تراكمها وتحويلها إلى مورد يمكن الاستفادة منه في الزراعة البسيطة.
+                        </p>
+                        
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                            <a href="#participate" class="bg-brandDark hover:bg-brandDark/90 text-white font-bold text-center px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3">
+                                <span>أريد المشاركة</span>
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </a>
+                            <a href="#how-it-works" class="bg-white border-2 border-brandDark/20 hover:border-brandDark text-brandDark font-bold text-center px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2">
+                                <span>اكتشف كيف تعمل الفكرة</span>
+                                <i class="fa-solid fa-circle-play text-brandNatural"></i>
+                            </a>
+                        </div>
+ 
+                        <!-- Micro trust badges -->
+                        <div class="pt-6 border-t border-brandSand flex flex-wrap gap-6 text-xs text-brandEarth font-semibold">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check-circle text-brandNatural"></i>
+                                <span>حل حيوي آمن ومغلق</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check-circle text-brandNatural"></i>
+                                <span>تقليل الروائح والحشرات</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-check-circle text-brandNatural"></i>
+                                <span>جهد مجتمعي محلي</span>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Right Side Visual / Image Composite -->
+                    <div class="lg:col-span-5">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <!-- Background Accent Layer -->
+                            <div class="absolute -inset-4 bg-brandSand/40 rounded-3xl transform rotate-2"></div>
+                            
+                            <!-- Main Visual Card Container -->
+                            <div class="relative bg-white p-6 sm:p-8 rounded-3xl border border-brandSand shadow-xl space-y-6">
+                                <!-- Transformation Graphic -->
+                                <div class="relative aspect-square rounded-2xl overflow-hidden bg-[#F8F7F0] flex items-center justify-center border border-brandSand">
+                                    <img src="images\hero.jpg"
+                                         alt="من نفايات الطعام إلى حياة جديدة: وعاء بوكاشي في مخيم نزوح بغزة"
+                                         class="w-full h-full object-contain bg-[#F8F7F0] transition-transform duration-700 hover:scale-105" fetchpriority="high">
+                                    </div>
+
+                                <!-- Process Infographic Bar -->
+                                <div class="grid grid-cols-3 gap-2 text-center pt-2">
+                                    <div class="p-3 rounded-xl bg-brandBg border border-brandSand">
+                                        <i class="fa-solid fa-apple-whole text-brandEarth text-xl mb-1"></i>
+                                        <p class="text-xs font-bold text-brandDark">1. جمع البقايا</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-brandBg border border-brandSand">
+                                        <i class="fa-solid fa-box-archive text-brandDark text-xl mb-1"></i>
+                                        <p class="text-xs font-bold text-brandDark">2. تخمير مغلق</p>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-brandBg border border-brandSand">
+                                        <i class="fa-solid fa-plant-wilt text-brandNatural text-xl mb-1"></i>
+                                        <p class="text-xs font-bold text-brandDark">3. مورد زراعي</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 3: The Problem We Want to Address -->
+        <section id="problem" class="py-16 bg-white border-y border-brandSand/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-brandDark mb-4">تحدٍ يومي نعيشه في مخيماتنا</h2>
+                    <p class="text-brandText/80 text-base sm:text-lg">
+                        فرضت ظروف النزوح واقعًا بيئيًا صعبًا، حيث تتطلب إدارة المخلفات اليومية حلولاً مبتكرة ومباشرة تخفف من الأعباء الصحية والبيئية على العائلات.
+                    </p>
+                </div>
+ 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Problem Card 1 -->
+                    <div class="organic-card bg-brandBg p-8 rounded-2xl border border-brandSand text-right flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brandSand/60 flex items-center justify-center text-brandEarth text-2xl mb-6">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDark mb-3">تراكم بقايا الطعام</h3>
+                            <p class="text-brandText/80 text-sm leading-relaxed">
+                                تتراكم بعض مخلفات الطعام بالقرب من أماكن المعيشة، خاصة عند محدودية وسائل الجمع والتخلص منها بشكل منتظم في ظروف النزوح.
+                            </p>
+                        </div>
+                    </div>
+ 
+                    <!-- Problem Card 2 -->
+                    <div class="organic-card bg-brandBg p-8 rounded-2xl border border-brandSand text-right flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brandSand/60 flex items-center justify-center text-brandEarth text-2xl mb-6">
+                                <i class="fa-solid fa-wind"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDark mb-3">روائح مزعجة</h3>
+                            <p class="text-brandText/80 text-sm leading-relaxed">
+                                تحلل بقايا الطعام العضوية في ظروف غير مناسبة أو المكشوفة للهواء قد يؤدي إلى انتشار الروائح غير المرغوبة داخل وحول الخيام.
+                            </p>
+                        </div>
+                    </div>
+ 
+                    <!-- Problem Card 3 -->
+                    <div class="organic-card bg-brandBg p-8 rounded-2xl border border-brandSand text-right flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-brandSand/60 flex items-center justify-center text-brandEarth text-2xl mb-6">
+                                <i class="fa-solid fa-bug"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brandDark mb-3">جذب الحشرات</h3>
+                            <p class="text-brandText/80 text-sm leading-relaxed">
+                                يمكن أن تجذب المخلفات العضوية المكشوفة بعض الحشرات والآفات، مما يزيد من صعوبة الحفاظ على بيئة معيشية صحية ومريحة للعائلات.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 4: Introducing the Bokashi Solution -->
+        <section id="about" class="py-16 sm:py-20 bg-brandBg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-brandDark text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                    <!-- Background Pattern -->
+                    <div class="absolute -left-10 -bottom-10 opacity-10 text-9xl">
+                        <i class="fa-solid fa-recycle"></i>
+                    </div>
+ 
+                    <div class="max-w-3xl space-y-6 relative z-10">
+                        <div class="inline-block bg-brandNatural/30 border border-brandNatural/40 text-brandSand px-4 py-1 rounded-full text-xs font-semibold">
+                            الفكرة والتقنية
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold leading-snug">
+                            حل بسيط بفكرة حيوية
+                        </h2>
+                        <p class="text-brandSand/90 text-base sm:text-lg leading-relaxed">
+                            البوكاشي طريقة للاستفادة من بعض بقايا الطعام من خلال تخميرها داخل وعاء مناسب ومغلق، باستخدام كائنات دقيقة نافعة وتحت ظروف مضبوطة. تساعد هذه العملية على تجهيز المادة العضوية لمرحلة معالجة لاحقة، بهدف الاستفادة منها في أنظمة زراعية بسيطة.
+                        </p>
+ 
+                        <!-- Highlighted Benefits -->
+                        <div class="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-brandNatural/30">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brandNatural text-lg mt-1"></i>
+                                <span class="text-sm font-medium">الاستفادة من جزء من مخلفات الطعام بدلاً من رميها.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brandNatural text-lg mt-1"></i>
+                                <span class="text-sm font-medium">الحد من الروائح والحشرات عبر التخمير اللاهوائي المحكم.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-circle-check text-brandNatural text-lg mt-1"></i>
+                                <span class="text-sm font-medium">إنتاج مادة عضوية مجهزة للمعالجة والاستخدام الزراعي.</span>
+                            </div>
+                        </div>
+ 
+                        <!-- Important Disclaimer Note -->
+                        <div class="bg-black/20 rounded-xl p-4 border-r-4 border-brandSand text-xs sm:text-sm text-brandSand/90 mt-6">
+                            <p class="font-bold mb-1"><i class="fa-solid fa-circle-info ml-1"></i> تنبيه هام:</p>
+                            <p>طريقة البوكاشي هي خطوة مجتمعية مساندة لإدارة الموارد العضوية، ولا تعتبر بديلاً كاملاً عن خدمات الجمع البلدي للنفايات أو الحل الشامل للأزمة البيئية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 5: How Does It Work? -->
+        <section id="how-it-works" class="py-16 sm:py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-brandDark mb-4">كيف تعمل العملية؟</h2>
+                    <p class="text-brandText/80 text-base">
+                        تعتمد عملية البوكاشي على خطوات تسلسلية بسيطة وآمنة يمكن تطبيقها في بيئة المخيمات باتباع الإرشادات الصحية.
+                    </p>
+                </div>
+ 
+                <!-- Step Grid Desktop / Timeline Mobile -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                    <!-- Desktop Connecting Line -->
+                    <div class="hidden md:block absolute top-1/2 left-12 right-12 h-0.5 bg-brandSand/80 -translate-y-8 z-0"></div>
+ 
+                    <!-- Step 1 -->
+                    <div class="relative z-10 bg-brandBg p-6 rounded-2xl border border-brandSand text-center organic-card">
+                        <div class="w-16 h-16 rounded-full bg-brandDark text-white font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-md">
+                            1
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg mb-2">جمع المخلفات المناسبة</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            فصل بعض بقايا الطعام المناسبة (مثل قشور الخضار والفواكه) عن النفايات الأخرى غير العضوية.
+                        </p>
+                    </div>
+ 
+                    <!-- Step 2 -->
+                    <div class="relative z-10 bg-brandBg p-6 rounded-2xl border border-brandSand text-center organic-card">
+                        <div class="w-16 h-16 rounded-full bg-brandNatural text-white font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-md">
+                            2
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg mb-2">التخمير الحيوي</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            وضع المخلفات في وعاء ملائم ومحكم الإغلاق، مع إضافة نُخالة البوكاشي الغنية بالكائنات الدقيقة النافعة.
+                        </p>
+                    </div>
+ 
+                    <!-- Step 3 -->
+                    <div class="relative z-10 bg-brandBg p-6 rounded-2xl border border-brandSand text-center organic-card">
+                        <div class="w-16 h-16 rounded-full bg-brandEarth text-white font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-md">
+                            3
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg mb-2">متابعة العملية</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            متابعة الوعاء وظروف التخمير والتأكد من إغلاقه التام لمنع دخول الهواء، مع تفريغ السائل الحيوي الناتج.
+                        </p>
+                    </div>
+ 
+                    <!-- Step 4 -->
+                    <div class="relative z-10 bg-brandBg p-6 rounded-2xl border border-brandSand text-center organic-card">
+                        <div class="w-16 h-16 rounded-full bg-brandDark text-white font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-md">
+                            4
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg mb-2">المعالجة والاستفادة</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            تقييم المادة المفرغة وإتمام المعالجة أو الدفن البسيط بالتربة قبل استخدامها في أنظمة زراعية مناسبة.
+                        </p>
+                    </div>
+                </div>
+ 
+                <!-- Diagram + Video -->
+                <div class="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold text-brandDark mb-4">كيف يبدو وعاء البوكاشي من الداخل؟</h3>
+                        <img src="images\bokashi-bin-diagram.jpg" alt="رسم توضيحي لمقطع داخلي في وعاء بوكاشي: الغطاء المحكم، طبقات البقايا والنخالة، صفيحة التصريف، وصنبور السائل" loading="lazy" class="w-full max-w-md mx-auto rounded-3xl shadow-xl border border-brandSand">
+                    </div>
+                    <div id="video-box" class="text-center">
+                        <h3 class="text-xl font-bold text-brandDark mb-4">شاهد الفكرة في 30 ثانية</h3>
+                        <div class="max-w-xs mx-auto rounded-3xl overflow-hidden shadow-xl border border-brandSand bg-black">
+                            <video controls playsinline preload="metadata" poster="images/video-poster.jpg" class="w-full aspect-[9/16] object-cover">
+                                <source src="images\Bokashi_Process_Explainer.mp4" type="video/mp4">
+                                متصفحك لا يدعم تشغيل الفيديو.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note on Safety -->
+                <div class="mt-12 text-center bg-brandSand/30 p-4 rounded-xl max-w-2xl mx-auto border border-brandSand text-xs text-brandEarth">
+                    <p><i class="fa-solid fa-triangle-exclamation text-brandEarth ml-1"></i> <strong>ملاحظة إرشادية:</strong> المادة المخمرة تحتاج فترة طمر أو معالجة بسيطة بالتربة لعدة أسابيع قبل إمكانية التسميد المباشر لجذور النباتات.</p>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 6: Expected Impact -->
+        <section id="impact" class="py-16 sm:py-20 bg-brandBg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-xs font-bold text-brandEarth uppercase tracking-widest">تأثير المبادرة</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-brandDark mt-1 mb-4">أثر يبدأ من مجتمعنا</h2>
+                    <p class="text-brandText/80 text-base">
+                        نتطلع من خلال هذه التجربة إلى تحقيق أهداف بيئية ومجتمعية واعدة على المدى القريب والبعيد:
+                    </p>
+                </div>
+ 
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Impact 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-brandSand text-right space-y-3 organic-card">
+                        <div class="w-12 h-12 rounded-xl bg-brandNatural/20 text-brandNatural flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg">تقليل بعض المخلفات</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            الاستفادة من جزء كبير من بقايا الطعام المنزلية وتقليل كمياتها الملقاة في المكبات العشوائية.
+                        </p>
+                    </div>
+ 
+                    <!-- Impact 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-brandSand text-right space-y-3 organic-card">
+                        <div class="w-12 h-12 rounded-xl bg-brandNatural/20 text-brandNatural flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-hand-holding-droplet"></i>
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg">بيئة معيشية أفضل</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            السعي للحد من الروائح الكريهة وتكاثر الحشرات الناتجة عن تعفن بقايا الطعام في محيط الخيام.
+                        </p>
+                    </div>
+ 
+                    <!-- Impact 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-brandSand text-right space-y-3 organic-card">
+                        <div class="w-12 h-12 rounded-xl bg-brandNatural/20 text-brandNatural flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg">دعم الزراعة البسيطة</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            استكشاف إمكانية تحسين جودة التربة واستخدام المادة العضوية في الزراعة الحضرية أو المنزليّة.
+                        </p>
+                    </div>
+ 
+                    <!-- Impact 4 -->
+                    <div class="bg-white p-6 rounded-2xl border border-brandSand text-right space-y-3 organic-card">
+                        <div class="w-12 h-12 rounded-xl bg-brandNatural/20 text-brandNatural flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-users-line"></i>
+                        </div>
+                        <h3 class="font-bold text-brandDark text-lg">مشاركة مجتمعية</h3>
+                        <p class="text-brandText/80 text-xs sm:text-sm leading-relaxed">
+                            تشجيع الأسر والمتطوعين على التعاون وتطبيق الممارسات البيئية الإيجابية في أحلك الظروف.
+                        </p>
+                    </div>
+                </div>
+</div>
+        </section>
+ 
+        <!-- Section 7: A Practical Pilot in Gaza -->
+        <section class="py-16 bg-white border-y border-brandSand/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-brandLightSand/60 rounded-3xl p-8 sm:p-12 border border-brandSand grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 space-y-4 text-right">
+                        <div class="inline-flex items-center gap-2 bg-brandEarth/10 text-brandEarth px-3 py-1 rounded-full text-xs font-bold">
+                            <i class="fa-solid fa-flask"></i>
+                            <span>التجربة والتقييم الإجرائي</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-brandDark">
+                            نبدأ بخطوات صغيرة... ونتعلم معًا
+                        </h2>
+                        <p class="text-brandText/90 text-sm sm:text-base leading-relaxed">
+                            تراعي المبادرة خصوصية الظروف الراهنة في غزة، لذلك نعتمد منهجية التجربة الريادية المحدودة للاختبار والتطوير المستمر بالتعاون المباشر مع المشاركين.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-brandSand shadow-sm">
+                                <h4 class="font-bold text-brandDark text-sm mb-1">1. نطاق محدد</h4>
+                                <p class="text-xs text-brandText/80">البدء بنطاق تجريبي صغير قابل للمتابعة والإشراف المستمر.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-brandSand shadow-sm">
+                                <h4 class="font-bold text-brandDark text-sm mb-1">2. توعية وإرشاد</h4>
+                                <p class="text-xs text-brandText/80">توفير ورش توعوية مبسطة حول معايير الفصل والسلامة.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-brandSand shadow-sm">
+                                <h4 class="font-bold text-brandDark text-sm mb-1">3. قياس النتائج</h4>
+                                <p class="text-xs text-brandText/80">توثيق ملاحظات العائلات وقياس مستويات الحد من الروائح.</p>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="lg:col-span-4 text-center lg:text-left">
+                        <a href="#participate" class="inline-block bg-brandDark hover:bg-brandDark/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all w-full sm:w-auto text-center">
+                            ساهم في تجربة المبادرة
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 8: Participation and Partnership Form -->
+        <section id="participate" class="py-16 sm:py-20 bg-brandBg">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-brandDark mb-4">إيد بإيد... بنصنع فرقًا</h2>
+                    <p class="text-brandText/80 text-base">
+                        سواء كنت أسرة ترغب في الاستفادة، متطوعًا شغوفًا، أو مؤسسة تسعى للشراكة؛ يسعدنا انضمامك واهتمامك.
+                    </p>
+                </div>
+ 
+                <!-- Form Container -->
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-brandSand shadow-xl">
+                    <form id="bokashi-form" class="space-y-6" novalidate>
+                        
+                        <!-- Choice Options -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-brandDark text-right">نوع المشاركة <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="cursor-pointer border-2 border-brandSand rounded-xl p-4 flex items-center justify-between hover:border-brandDark transition-all option-card">
+                                    <span class="text-sm font-semibold text-brandDark">أسرة مشاركة</span>
+                                    <input type="radio" name="participation_type" value="أسرة" class="accent-brandDark" checked>
+                                </label>
+                                <label class="cursor-pointer border-2 border-brandSand rounded-xl p-4 flex items-center justify-between hover:border-brandDark transition-all option-card">
+                                    <span class="text-sm font-semibold text-brandDark">متطوع ميداني</span>
+                                    <input type="radio" name="participation_type" value="متطوع" class="accent-brandDark">
+                                </label>
+                                <label class="cursor-pointer border-2 border-brandSand rounded-xl p-4 flex items-center justify-between hover:border-brandDark transition-all option-card">
+                                    <span class="text-sm font-semibold text-brandDark">مؤسسة / جهة داعمة</span>
+                                    <input type="radio" name="participation_type" value="مؤسسة" class="accent-brandDark">
+                                </label>
+                            </div>
+                        </div>
+ 
+                        <!-- Grid Fields -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-right">
+                            <!-- Full Name -->
+                            <div class="space-y-1">
+                                <label for="full-name" class="block text-sm font-bold text-brandDark">الاسم الكامل <span class="text-red-500">*</span></label>
+                                <input type="text" id="full-name" required placeholder="أدخل اسمك الكريم" class="w-full px-4 py-3 rounded-xl border border-brandSand focus:border-brandDark bg-brandBg/40 text-sm text-brandText outline-none">
+                                <span class="error-msg text-xs text-red-500 hidden">يرجى إدخال الاسم.</span>
+                            </div>
+ 
+                            <!-- Camp/Region -->
+                            <div class="space-y-1">
+                                <label for="location" class="block text-sm font-bold text-brandDark">المنطقة أو المخيم <span class="text-red-500">*</span></label>
+                                <input type="text" id="location" required placeholder="مثال: مخيم دير البلح، دير البلح" class="w-full px-4 py-3 rounded-xl border border-brandSand focus:border-brandDark bg-brandBg/40 text-sm text-brandText outline-none">
+                                <span class="error-msg text-xs text-red-500 hidden">يرجى تحديد المنطقة أو المخيم.</span>
+                            </div>
+                        </div>
+ 
+                        <!-- Phone (Optional) -->
+                        <div class="text-right space-y-1">
+                            <label for="phone" class="block text-sm font-bold text-brandDark">رقم التواصل <span class="text-xs font-normal text-brandEarth">(اختياري)</span></label>
+                            <input type="tel" id="phone" placeholder="059XXXXXXX" class="w-full px-4 py-3 rounded-xl border border-brandSand focus:border-brandDark bg-brandBg/40 text-sm text-brandText outline-none text-right">
+                        </div>
+ 
+                        <!-- Notes -->
+                        <div class="text-right space-y-1">
+                            <label for="notes" class="block text-sm font-bold text-brandDark">ملاحظات أو استفسارات <span class="text-xs font-normal text-brandEarth">(اختياري)</span></label>
+                            <textarea id="notes" rows="3" placeholder="أكتب ملاحظاتك أو نوع الدعم الذي ترغب بتقديمه..." class="w-full px-4 py-3 rounded-xl border border-brandSand focus:border-brandDark bg-brandBg/40 text-sm text-brandText outline-none"></textarea>
+                        </div>
+ 
+                        <!-- Front-End Disclaimer Notice -->
+                        <p class="text-xs text-brandEarth bg-brandSand/20 p-3 rounded-lg text-right">
+                            <i class="fa-solid fa-triangle-exclamation ml-1"></i>
+                            تنبيه: هذه الصفحة نموذج واجهة تجريبي، ولن يتم إرسال أو تخزين البيانات على خادم خارجي حالياً.
+                        </p>
+ 
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full bg-brandDark hover:bg-brandDark/90 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                            <span>إرسال طلب الاهتمام</span>
+                            <i class="fa-solid fa-paper-plane text-sm"></i>
+                        </button>
+                    </form>
+ 
+                    <!-- Success Alert Feedback Box (Hidden by default) -->
+                    <div id="form-feedback" class="hidden mt-6 bg-brandNatural/20 border border-brandNatural text-brandDark p-6 rounded-2xl text-center space-y-2">
+                        <i class="fa-solid fa-circle-check text-3xl text-brandNatural"></i>
+                        <h4 class="font-bold text-lg">شكرًا لاهتمامك بمبادرة البوكاشي!</h4>
+                        <p class="text-sm">تم استلام طلبك بنجاح في النسخة التجريبية للواجهة. نسعى للعمل معًا لنماء مجتمعنا.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 9: Frequently Asked Questions -->
+        <section id="faq" class="py-16 sm:py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-brandDark mb-4">الأسئلة الشائعة</h2>
+                    <p class="text-brandText/80 text-base">إجابات علمية ومبسطة حول طريقة عمل البوكاشي وتطبيقها.</p>
+                </div>
+ 
+                <div class="space-y-4 text-right">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>1. ما هي تقنية البوكاشي؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            البوكاشي هي طريقة يابانية لتخمير المخلفات العضوية اللاهوائية (بدون أكسجين) باستخدام كائنات دقيقة نافعة (EM). تتم العملية في وعاء مغلق لمنع الروائح وتجهيز بقايا الطعام للتحلل السريع بالتربة.
+                        </div>
+                    </div>
+ 
+                    <!-- FAQ 2 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>2. هل يمكن تطبيق البوكاشي داخل المخيمات؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            نعم، تتميز طريقة البوكاشي بأنها تعتمد على أوعية مغلقة تماماً لا تتطلب مساحات واسعة، وتمنع وصول الحشرات، مما يجعلها مناسبة للظروف المحدودة في المخيمات بشرط الالتزام بفرز بقايا الطعام المناسبة.
+                        </div>
+                    </div>
+ 
+                    <!-- FAQ 3 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>3. هل تمنع الطريقة الروائح بشكل كامل؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            تحد الطريقة المحكمة بشكل كبير جداً من الروائح الكريهة الناتجة عن التعفن المكشوف. التخمير السليم يعطي رائحة حمضية مخللة خفيفة ومقبولة، طالما كان الوعاء مغلقاً بعناية وتم تصريف السائل أولاً بأول.
+                        </div>
+                    </div>
+ 
+                    <!-- FAQ 4 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>4. هل يمكن استخدام جميع أنواع مخلفات الطعام؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            يُفضل استخدام قشور الخضار والفواكه وبقايا الخبز والحبوب. يُنصح بتجنب السوائل الزائدة، والزيوت الكثيفة، أو العظام الكبيرة والسوائل العفنة جداً لضمان نجاح العملية بدون روائح.
+                        </div>
+                    </div>
+ 
+                    <!-- FAQ 5 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>5. هل المادة الناتجة جاهزة للاستخدام المباشر في الزراعة؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            لا، المادة بعد التخمير تكون حمضية. يجب خلطها مع التربة وطمرها لعدة أسابيع حتى تتحلل بالكامل وتستقر حموضتها قبل غرس النباتات مباشرة فوقها.
+                        </div>
+                    </div>
+ 
+                    <!-- FAQ 6 -->
+                    <div class="faq-item border border-brandSand rounded-2xl bg-brandBg overflow-hidden transition-all">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 flex items-center justify-between text-right font-bold text-brandDark hover:bg-brandSand/20">
+                            <span>6. هل البوكاشي بديل عن جمع النفايات؟</span>
+                            <i class="fa-solid fa-chevron-down faq-icon transition-transform text-brandEarth"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-sm text-brandText/90 leading-relaxed border-t border-brandSand/40">
+                            لا، هي حل مجتمعي مساند يقلل العبء العضوي فقط، ولا تستغني المجتمعات عن خدمات النظافة والجمع العام للمخلفات غير العضوية والصلبة.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 10: Final Call to Action -->
+        <section class="py-16 sm:py-20 bg-brandDark text-white relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
+                <i class="fa-solid fa-leaf text-4xl text-brandNatural mb-2"></i>
+                <h2 class="text-3xl sm:text-4xl font-extrabold">كل خطوة صغيرة ممكن تصنع فرقًا</h2>
+                <p class="text-brandSand max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+                    خلينا نستكشف معًا كيف يمكن الاستفادة من جزء من بقايا الطعام، ونبني تجربة بيئية تناسب واقع مخيماتنا في غزة.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#participate" class="bg-brandNatural hover:bg-brandNatural/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all">
+                        أرغب بالمشاركة
+                    </a>
+                    <a href="#participate" class="bg-transparent border-2 border-brandSand text-brandSand hover:bg-white hover:text-brandDark font-bold px-8 py-4 rounded-xl transition-all">
+                        التواصل بشأن التعاون
+                    </a>
+                </div>
+            </div>
+        </section>
+ 
+    </main>
+ 
+    <!-- Section 11: Footer -->
+    <footer class="bg-brandText text-brandSand py-12 border-t border-brandEarth/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 text-right">
+                
+                <!-- Col 1: Identity -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <img src="images\logo.png" alt="شعار مبادرة بوكاشي غزة" class="w-12 h-12 object-contain" onerror="this.style.display='none'">
+                        <span class="text-xl font-bold text-white">البوكاشي | Bokashi</span>
+                    </div>
+                    <p class="text-xs text-brandSand/80 leading-relaxed max-w-sm">
+                        مبادرة بيئية وحيوية مجتمعية تسعى للاستفادة من بقايا الطعام وتحويل التحديات العضوية في مخيمات غزة إلى فرص بيئية وزراعية واعدة.
+                    </p>
+                </div>
+ 
+                <!-- Col 2: Quick Links -->
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="text-white font-bold text-sm">روابط سريعة</h4>
+                    <ul class="space-y-2 text-xs text-brandSand/80">
+                        <li><a href="#hero" class="hover:text-white transition-colors">الرئيسية</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">عن المبادرة</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white transition-colors">كيف تعمل المبادرة؟</a></li>
+                        <li><a href="#impact" class="hover:text-white transition-colors">الأثر البيئي والمجتمعي</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+ 
+                <!-- Col 3: Contact Info Placeholders -->
+                <div class="md:col-span-4 space-y-3">
+                    <h4 class="text-white font-bold text-sm">التواصل والاهتمام</h4>
+                    <p class="text-xs text-brandSand/80">للاستفسارات والمبادرات المجتمعية في قطاع غزة:</p>
+                    <div class="space-y-2 text-xs text-brandSand/80">
+                        <p><i class="fa-solid fa-location-dot ml-2 text-brandNatural"></i> قطاع غزة، فلسطين</p>
+                        <p><i class="fa-solid fa-envelope ml-2 text-brandNatural"></i> info@bokashi-gaza.org (نموذج افتراضي)</p>
+                    </div>
+                </div>
+ 
+            </div>
+ 
+            <div class="mt-12 pt-6 border-t border-brandSand/20 text-center text-xs text-brandSand/60">
+                <p>جميع الحقوق محفوظة &copy; 2026 - مبادرة البوكاشي البيئية | Bokashi Initiative Gaza</p>
+            </div>
+        </div>
+    </footer>
+ 
+    <!-- JavaScript Interactivity Code -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Drawer Toggle
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+ 
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        menuIcon.classList.remove('fa-xmark');
+                        menuIcon.classList.add('fa-bars');
+                    } else {
+                        menuIcon.classList.remove('fa-bars');
+                        menuIcon.classList.add('fa-xmark');
+                    }
+                });
+ 
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        menuIcon.classList.remove('fa-xmark');
+                        menuIcon.classList.add('fa-bars');
+                    });
+                });
+            }
+ 
+            // Accordion Interaction for FAQs
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    
+                    // Close all accordion items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+ 
+                    // Toggle current item if it wasn't open
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+ 
+            // Form Client-Side Validation and Simulation
+            const form = document.getElementById('bokashi-form');
+            const feedbackBox = document.getElementById('form-feedback');
+ 
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    let isValid = true;
+                    const nameInput = document.getElementById('full-name');
+                    const locationInput = document.getElementById('location');
+ 
+                    // Name validation
+                    if (!nameInput.value.trim()) {
+                        showError(nameInput);
+                        isValid = false;
+                    } else {
+                        hideError(nameInput);
+                    }
+ 
+                    // Location validation
+                    if (!locationInput.value.trim()) {
+                        showError(locationInput);
+                        isValid = false;
+                    } else {
+                        hideError(locationInput);
+                    }
+ 
+                    if (isValid) {
+                        // Display demo feedback alert
+                        feedbackBox.classList.remove('hidden');
+                        form.reset();
+                        
+                        // Scroll smoothly to feedback box
+                        feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+ 
+            function showError(inputElement) {
+                const parent = inputElement.parentElement;
+                const errorMsg = parent.querySelector('.error-msg');
+                if (errorMsg) errorMsg.classList.remove('hidden');
+                inputElement.classList.add('border-red-500');
+            }
+ 
+            function hideError(inputElement) {
+                const parent = inputElement.parentElement;
+                const errorMsg = parent.querySelector('.error-msg');
+                if (errorMsg) errorMsg.classList.add('hidden');
+                inputElement.classList.remove('border-red-500');
+            }
+        });
+    </script>
+</body>
+</html>
